@@ -2,7 +2,7 @@ package com.demo.demoapi.adapter.inbound.communication;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CommonResponse {
+public class ErrorResponse {
 
     @JsonProperty("code")
     private final int code;
@@ -10,12 +10,8 @@ public class CommonResponse {
     @JsonProperty("message")
     private final String message;
 
-    @JsonProperty("data")
-    private Object data;
-
-    public CommonResponse(int code, String message, Object data) {
+    public ErrorResponse(int code, String message) {
         this.code = code;
         this.message = message;
-        this.data = data;
     }
 }

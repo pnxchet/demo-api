@@ -1,24 +1,28 @@
 package com.demo.demoapi.adapter.inbound.controller;
 
-import com.demo.demoapi.adapter.outbound.persistence.taskPersistence.TaskPersistenceObject;
-import com.demo.demoapi.application.service.TaskService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import com.demo.demoapi.adapter.inbound.communication.CommonResponse;
+import com.demo.demoapi.adapter.inbound.communication.taskRequest.CreateTaskRequest;
+import com.demo.demoapi.application.gateway.TaskGateway;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
-    private final TaskService taskService;
+    private final TaskGateway taskGateway;
 
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
+    public TaskController(TaskGateway taskGateway) {
+        this.taskGateway = taskGateway;
     }
 
     @GetMapping()
-    public List<TaskPersistenceObject> getTasks() {
-        return taskService.getTasks();
+    public CommonResponse getTasks() {
+        return taskGateway.getTasks();
+    }
+
+    @PostMapping()
+    public CommonResponse createTask(
+            @RequestBody CreateTaskRequest request
+    ) {
+        return taskGateway.createTask(request);
     }
 }

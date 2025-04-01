@@ -1,10 +1,9 @@
 package com.demo.demoapi.adapter.outbound.persistence.taskPersistence;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,9 +11,11 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "task", schema = "demo")
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskPersistenceObject {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "title")

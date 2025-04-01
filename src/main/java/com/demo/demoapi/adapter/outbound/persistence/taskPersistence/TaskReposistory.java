@@ -25,4 +25,13 @@ public class TaskReposistory {
             throw new DatabaseErrorException(Constant.DATABASE_ERROR);
         }
     }
+
+    public void createTask(TaskPersistenceObject task) {
+        try {
+            taskJpaReposistory.save(task);
+        } catch (Exception e) {
+            Logger.error(Constant.DATABASE_ERROR, e);
+            throw new DatabaseErrorException(Constant.DATABASE_ERROR);
+        }
+    }
 }
