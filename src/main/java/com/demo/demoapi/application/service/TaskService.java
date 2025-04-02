@@ -53,4 +53,10 @@ public class TaskService implements TaskGateway {
         taskReposistory.updateTaskStatus(taskUUID, isCompleted, completedAt);
         return new CommonResponse(HttpStatus.OK.value(), Constant.SUCCESS, null);
     }
+
+    public CommonResponse deleteTask(String taskId) {
+        UUID taskUUID = ConvertUtil.convertStringToUUID(taskId);
+        taskReposistory.deleteTask(taskUUID);
+        return new CommonResponse(HttpStatus.OK.value(), Constant.SUCCESS, null);
+    }
 }

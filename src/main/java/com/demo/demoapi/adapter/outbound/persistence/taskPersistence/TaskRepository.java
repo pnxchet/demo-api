@@ -21,7 +21,7 @@ public class TaskRepository {
         try {
             return taskJpaRepository.findAll();
         } catch (Exception e) {
-            Logger.error(Constant.DATABASE_ERROR, e);
+            Logger.error("get tasks error", e);
             throw new DatabaseErrorException(Constant.DATABASE_ERROR);
         }
     }
@@ -30,7 +30,7 @@ public class TaskRepository {
         try {
             taskJpaRepository.save(task);
         } catch (Exception e) {
-            Logger.error(Constant.DATABASE_ERROR, e);
+            Logger.error("create task error", e);
             throw new DatabaseErrorException(Constant.DATABASE_ERROR);
         }
     }
@@ -39,7 +39,16 @@ public class TaskRepository {
         try {
             taskJpaRepository.updateTaskStatus(id, isCompleted, completedAt);
         } catch (Exception e) {
-            Logger.error(Constant.DATABASE_ERROR, e);
+            Logger.error("update task status error", e);
+            throw new DatabaseErrorException(Constant.DATABASE_ERROR);
+        }
+    }
+
+    public void deleteTask(UUID id) {
+        try {
+            taskJpaRepository.deleteById(id);
+        } catch (Exception e) {
+            Logger.error("delete task error", e);
             throw new DatabaseErrorException(Constant.DATABASE_ERROR);
         }
     }

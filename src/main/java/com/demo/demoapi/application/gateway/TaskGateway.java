@@ -12,4 +12,6 @@ public interface TaskGateway {
     public CommonResponse createTask(CreateTaskRequest request);
 
     public CommonResponse updateTaskStatus(String taskId, UpdateStatusRequest request);
+
+    public CommonResponse deleteTask(String taskId);
 }

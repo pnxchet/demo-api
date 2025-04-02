@@ -32,4 +32,11 @@ public class TaskController {
             ) {
         return taskGateway.updateTaskStatus(taskId, request);
     }
+
+    @DeleteMapping("/{taskId}")
+    public CommonResponse deleteTask(
+            @PathVariable String taskId
+    ) {
+        return taskGateway.deleteTask(taskId);
+    }
 }

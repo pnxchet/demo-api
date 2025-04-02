@@ -7,5 +7,6 @@ CREATE TABLE task (
   due_date TIMESTAMP,
   completed_at TIMESTAMP,
   created_by VARCHAR(255),
-  created_at TIMESTAMP
+  created_at TIMESTAMP,
+  CONSTRAINT fk_created_by FOREIGN KEY (created_by) REFERENCES user(username)
 );
