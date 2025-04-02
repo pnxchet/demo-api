@@ -4,22 +4,22 @@ import com.demo.demoapi.application.exception.DatabaseErrorException;
 import com.demo.demoapi.util.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public class TaskReposistory {
-    private final TaskJpaReposistory taskJpaReposistory;
-    private static final Logger Logger = LoggerFactory.getLogger(TaskReposistory.class);
-
-    public TaskReposistory(TaskJpaReposistory taskJpaReposistory) {
-        this.taskJpaReposistory = taskJpaReposistory;
-    }
+public class TaskRepository {
+    @Autowired
+    private TaskJpaRepository taskJpaRepository;
+    private static final Logger Logger = LoggerFactory.getLogger(TaskRepository.class);
 
     public List<TaskPersistenceObject> getTasks() {
         try {
-            return taskJpaReposistory.findAll();
+            return taskJpaRepository.findAll();
         } catch (Exception e) {
             Logger.error(Constant.DATABASE_ERROR, e);
             throw new DatabaseErrorException(Constant.DATABASE_ERROR);
@@ -28,7 +28,16 @@ public class TaskReposistory {
 
     public void createTask(TaskPersistenceObject task) {
         try {
-            taskJpaReposistory.save(task);
+            taskJpaRepository.save(task);
+        } catch (Exception e) {
+            Logger.error(Constant.DATABASE_ERROR, e);
+            throw new DatabaseErrorException(Constant.DATABASE_ERROR);
+        }
+    }
+
+    public void updateTaskStatus(UUID id, Boolean isCompleted, LocalDateTime completedAt) {
+        try {
+            taskJpaRepository.updateTaskStatus(id, isCompleted, completedAt);
         } catch (Exception e) {
             Logger.error(Constant.DATABASE_ERROR, e);
             throw new DatabaseErrorException(Constant.DATABASE_ERROR);
